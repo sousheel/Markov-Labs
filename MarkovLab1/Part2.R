@@ -26,3 +26,16 @@ LongestTail <- function(n, q) {
   return(longestStreak)
 }
 
+Part3 <- function(){
+  sim <- replicate(10000,LongestTail(250,0.6))
+  
+  hist(sim, 
+       main="10K Simulations of Tn", 
+       xlab="Longest Tail Run", 
+       border="black", 
+       col="white",
+       xlim=c(0,35),
+       ylim=c(0,2000),
+       las=1, 
+       breaks=20)
+}

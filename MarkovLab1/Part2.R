@@ -1,22 +1,28 @@
+simulateFlips <- function(n, p) {
+  sspace <- c("H","T")
+  simFlips <- sample(sspace, 
+                     size = n, 
+                     replace = TRUE, 
+                     prob = c(p, 1 - p)) 
+  return(simFlips)
+}
+
 LongestTail <- function(n, q) {
-  i <- 0
+  simFlips <- simulateFlips(n, 1 - q)
+  
   longestStreak <- 0
   curStreak <- 0
-  while(i < n){
-    flip <- rbinom(1,1,0.5)
-    if (flip == 0){
-      #Tails
-      curStreak <- curStreak + 1
-      if(curStreak > longestStreak){
+  for (i in simFlips) {
+    if (i == "H") { # Heads
+      if (curStreak > longestStreak) {
         longestStreak <- curStreak
       }
-    }else{
-      #Heads
       curStreak <- 0
     }
-    i <- i + 1
+    else { # Tails
+      curStreak <- curStreak + 1
+    }
   }
   return(longestStreak)
 }
 
-LongestTail(250, 0.6)
